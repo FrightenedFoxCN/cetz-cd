@@ -1,8 +1,8 @@
-= CeTZ commutative diagrams
+# CeTZ commutative diagrams
 
 This is a project to complement to the [CeTZ package](https://github.com/johannes-wolf/cetz) of [Typst](https://typst.app/) in an attempt to align to tikz-cd format. Only for personal use currently, without any guarantee.
 
-== Description of the DSL
+## Description of the DSL
 
 > WARNING: They are all EXPERIMENTAL and MAY BE ALTERED SOON.
 
@@ -31,10 +31,10 @@ The arrows are seperated from the text, which in my perspective is better than t
 
 but **it would soon be altered** to cater to the need of much complex arrow.
 
-== TODO
+## TODO
 
-[ ] Arrow styles, especially label. It calls for a complete redesign of arrow representation
-[ ] Some snipets, only for my own convenience
-[ ] Refactor the code
+- [ ] Arrow styles, especially label. It calls for a complete redesign of arrow representation
+- [ ] Some snipets, only for my own convenience
+- [ ] Refactor the code
 
 It may be rewritten completely as soon as Typst development team makes their `content` type better.
