@@ -62,7 +62,7 @@
     }
 }
 
-#let make-cd(table, arrow) = style(styles => {align(center)[#cetz.canvas(length: 1cm, {
+#let make-cd(table, arrow, width, height) = style(styles => {align(center)[#cetz.canvas(length: 1cm, {
     // preparations
     // note that you should not expose all things from cetz.draw
     // due to some naming issues, `line` for instance
@@ -99,16 +99,16 @@
     // then convert the grid space to coordinate, 2cm in between for now
     // @TODO: add custom extra width
     
-    let coord_x = partial-sum-series(vspacing).enumerate().map(a => a.first() * 2 + a.last())
-    let coord_y = partial-sum-series(hspacing).enumerate().map(a => a.first() * -2 - a.last())
+    let coord_x = partial-sum-series(vspacing).enumerate().map(a => a.first() * width + a.last())
+    let coord_y = partial-sum-series(hspacing).enumerate().map(a => - a.first() * height - a.last())
 
     
     // finally, place the item into the table
     for line in table.enumerate() {
         for item in line.last().enumerate() {
             cetz.draw.content(
-                (coord_x.at(item.first()), coord_y.at(line.first())),
-                item.last()
+                (coord_x.at(item.first()) + vspacing.at(item.first()) / 2, coord_y.at(line.first())),
+                item.last(), anchor: "center"
             )
         }
     }
@@ -134,12 +134,37 @@
                 // integrity check on boundaries
                 check-boundary(end-point, line-length, line-number)
 
+                let depart-x-c = vspacing.at(item-index) / 2
+                let depart-y-c = hspacing.at(line-index) / 2
+
+                let end-x-c = vspacing.at(end-point.at(0)) / 2
+                let end-y-c = hspacing.at(end-point.at(1)) / 2
+
+                let depart-height-c = measure(table.at(line-index).at(item-index), styles).height.cm() / 2
+                let depart-width-c = measure(table.at(line-index).at(item-index), styles).width.cm() / 2
+
+                let end-height-c = measure(table.at(end-point.last()).at(end-point.first()), styles).height.cm() / 2
+                let end-width-c = measure(table.at(end-point.last()).at(end-point.first()), styles).width.cm() / 2
+
                 // then we place the arrow a bit away from the departure point to the end point
                 // @TODO: custom padding length
-                let line-start = (coord_x.at(item-index) + (vspacing.at(item-index) / 2 + 0.1)  * arrow.at(0),
-                    coord_y.at(line-index) - (hspacing.at(line-index) / 2 + 0.2) * arrow.at(1))
-                let line-end = (coord_x.at(end-point.at(0)) - (vspacing.at(end-point.at(0)) / 2 + 0.1) * arrow.at(0),
-                    coord_y.at(end-point.at(1)) + (hspacing.at(end-point.at(1)) / 2 + 0.1) * arrow.at(1))
+                let line-start = (
+                    coord_x.at(item-index) + 
+                    depart-x-c + 
+                    (depart-width-c + 0.1) 
+                    * arrow.at(0),
+                    coord_y.at(line-index) - 
+                    (depart-height-c + 0.2) 
+                    * arrow.at(1)
+                )
+                let line-end = (
+                    coord_x.at(end-point.at(0)) + 
+                    end-x-c - 
+                    (end-width-c + 0.1) 
+                    * arrow.at(0),
+                    coord_y.at(end-point.at(1)) + 
+                    (end-height-c + 0.1) 
+                    * arrow.at(1))
                 
                 cetz.draw.line(line-start, line-end)
             }
@@ -147,8 +172,10 @@
     }
 })]})
 
-#let cetz-cd(table, arrow) = make-cd(table, parse-arrow(arrow))
+#let cetz-cd(table, arrow, width: 2, height: 2) = make-cd(table, parse-arrow(arrow), width, height)
 
 #cetz-cd(
     (($...$, $C_(n + 1)$, $C_n$, $C_(n - 1)$, $...$), ($...$, $D_(n + 1)$, $D_n$, $D_(n - 1)$, $...$)),
-    "r & r, d & r, d & r, d & \\ r & r & r & r &")
+    "r & r, d, ld & r, d, ld & r, d, ld & ld \\ r & r & r & r &")
+
+#cetz-cd((($H_* (A)$, $H_*^A (X)$, $H_* (S_*^A (X \/ S_* (A)))$, $H_* (A)$, $0$), ($H_* (A)$, $H_* (X)$, $H_* (X, A)$, $H_* (A)$, $0$)), "r, d & r, d & r, d & r, d & d \\ r & r & r & r", width: 1.5)
