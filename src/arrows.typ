@@ -55,11 +55,20 @@
         let text-position = add2d(scale2d(0.55, arrow.start), scale2d(0.45, arrow.end))
         
         // slope of the arrow
-        let slope = (arrow.end.at(1) - arrow.start.at(1)) / (arrow.end.at(0) - arrow.start.at(0))
-        // the normal vector
-        let normal = normalize2d((-slope, 1.))
-        text-position = add2d(text-position, scale2d(0.15, normal))
-        text-position = add2d(text-position, scale2d(0.5, arrow.text-size))
+        let slope = 0.
+        let normal = (0., 0.)
+        let tangent = (0., 0.)
+        if arrow.end.at(0) - arrow.start.at(0) != 0 {
+            slope = (arrow.end.at(1) - arrow.start.at(1)) / (arrow.end.at(0) - arrow.start.at(0))
+            normal = normalize2d((-slope, 1.))
+            tangent = normalize2d((1., slope))
+        } else {
+            normal = (1., 0.)
+            tangent = (0., 1.)
+        }
+        
+        text-position = add2d(text-position, scale2d(0.3, normal))
+        text-position = add2d(text-position, scale2d(0.5, mult2d(tangent, arrow.text-size)))
 
         
 

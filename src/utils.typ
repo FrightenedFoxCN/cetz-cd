@@ -64,6 +64,10 @@
     (scalar * vec.at(0), scalar * vec.at(1))
 }
 
+#let mult2d(x, y) = {
+    (x.at(0) * y.at(0), x.at(1) * y.at(1))
+}
+
 #let check-boundary(end_point, bound_x, bound_y) = {
     if (end_point.at(0) < 0 or end_point.at(0) >= bound_x or
         end_point.at(1) < 0 or end_point.at(1) >= bound_y) {
