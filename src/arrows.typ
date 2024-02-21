@@ -16,6 +16,8 @@
             res.at(0) -= 1
         } else if i == "r" {
             res.at(0) += 1
+        } else {
+            return none
         }
     }
 
@@ -24,7 +26,7 @@
 
 // this is the *internal* representation of the arrow
 
-#let arrow(start, // start point
+#let cd-arrow(start, // start point
     end,          // end point
     style,        // style of the arrow
     text,         // text attached to the arrow
@@ -67,11 +69,14 @@
             tangent = (0., 1.)
         }
         
-        text-position = add2d(text-position, scale2d(0.3, normal))
-        text-position = add2d(text-position, scale2d(0.5, mult2d(tangent, arrow.text-size)))
-
+        if arrow.swapped != true {
+            text-position = add2d(text-position, scale2d(0.3, normal))
+            text-position = add2d(text-position, scale2d(0.5, mult2d(tangent, arrow.text-size)))
+        } else {
+            text-position = add2d(text-position, scale2d(-0.3, normal))
+            text-position = add2d(text-position, scale2d(-0.5, mult2d(tangent, arrow.text-size)))
+        }
         
-
 
         cetz.draw.content(text-position, arrow.text, anchor: "center")
     }
@@ -82,11 +87,13 @@
 #let arr(direction,
     style : "-", // style of the arrow
     text : none,  // text attached to the arrow
+    swapped: false,
     bent : 0.,  // if the arrow is bent, a degree is given here
     offset : 0.) = ( // offset of the arrow from the centerline
     direction: resolve-arrow-string(direction),
     style: style,
     text: text,
+    swapped: swapped,
     bent: bent,
     offset: offset
 )

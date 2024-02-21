@@ -2,6 +2,7 @@
 
 #import "utils.typ": *
 #import "arrows.typ": *
+#import "parser.typ": *
 
 #let make-cd(table, arrow, width, height) = style(styles => {align(center)[#cetz.canvas(length: 1cm, {
 
@@ -98,17 +99,19 @@
                     coord_y.at(end-point.at(1)) + 
                     (end-height-c + 0.1) 
                     * arrow.direction.at(1))
+                
+                let text-size = (measure(arrow.text, styles).width.cm(), measure(arrow.text, styles).height.cm())
 
-                // draw the arrow according to the parameters
-                let arrow-to-draw = none
-
-                if arrow.text != none {
-                    let text-size = (measure(arrow.text, styles).width.cm(), measure(arrow.text, styles).height.cm())
-
-                    arrow-to-draw = default-arrow-with-text(line-start, line-end, arrow.text, text-size)
-                } else {
-                    arrow-to-draw = default-arrow(line-start, line-end)
-                }
+                let arrow-to-draw = cd-arrow(
+                    line-start, 
+                    line-end,
+                    arrow.style,
+                    arrow.text, 
+                    text-size,
+                    arrow.swapped,
+                    arrow.bent,
+                    arrow.offset
+                )
                 
                 draw-arrow(arrow-to-draw)
             }
@@ -116,5 +119,7 @@
     }
 })]})
 
-#let cetz-cd(table, arrow, width: 2, height: 2) = make-cd(table, arrow, width, height)
-#let cetz-cd-raw(table, arrow, width: 2, height: 2) = make-cd(table, parse-arrow(arrow), width, height)
+#let cetz-cd(content, width: 2, height: 2) = {
+    let (table, arrows) = parser(content.text)
+    make-cd(table, arrows, width, height)
+}
