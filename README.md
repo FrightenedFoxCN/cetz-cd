@@ -8,7 +8,7 @@ In order to align to tikz-cd api without losing sight of the design philosophy o
 
 ```typst
 #cetz-cd(```
-    $...$ ar[r] & $C_(n + 1)$ ar[r] ar[d] ar[ld] & $C_n$ ar[r] ar[d] ar[ld] & $C_(n - 1)$ ar[r] ar[d] ar[ld] & $...$ ar[ld] \
+    $...$ ar[r] & $C_(n + 1)$ ar[r] ar[d] ar[ld] & $C_n$ ar[r] ar[d] ar[ld] & $C_(n - 1)$ ar[r] ar[d] ar[ld] & $...$ ar[ld];
     $...$ ar[r] & $D_(n + 1)$ ar[r] & $D_n$ ar[r] & $D_(n - 1)$ ar[r] & $...$
 ```)
 ```
@@ -29,3 +29,4 @@ while tikz-cd presents as
 - [x] Refactor the code
 - [ ] Rewrite the manual
 - [ ] Support for better arrows, styles, bent & offset
+- [ ] Reuse `\` as line break, or use `,` as item break

@@ -1,7 +1,7 @@
 #import "arrows.typ": *
 
 #let to-table(str) = {
-    str.split("\\")
+    str.split(";")
        .map(s => s.trim(" ").split("&"))
 }
 
