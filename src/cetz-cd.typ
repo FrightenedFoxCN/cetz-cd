@@ -10,11 +10,11 @@
     let line-number = table.len()
     let line-length = table.at(0).len()
     
-    for line in table {
-        if line.len() != line-length {
-            panic("Numbers of items in a line is different. Check your input!")
-        }
-    }
+    // for line in table {
+    //     if line.len() != line-length {
+    //         panic("Numbers of items in a line is different. Check your input!")
+    //     }
+    // }
 
     // decide how large the "grid" is
 
