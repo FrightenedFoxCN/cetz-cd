@@ -2,11 +2,7 @@
 
 // first, one simple arrow
 
-#cetz-cd(
-    (($A$, $B$), ), (((arr("r", text: $f$), ), ),))
-
-#cetz-cd(
-    (($A$, ), ($B$, )), (((arr("d", text: $f$), ), ),))
-
-#cetz-cd(
-    (($A$, $$), ($$, $C$)), (((arr("dr", text: $f$), ), ),))
+#cetz-cd( ```
+    $...$ ar[r] & $C_n$ ar[r, $d_(n - 1)$] ar[d, $u_n$] & $C_(n - 1)$ ar[r] ar[d, $u_(n - 1)$] & $...$;
+    $...$ ar[r] & $D_n$ ar[r, $d_(n - 1)$] & $D_(n - 1)$ ar[r] & $...$;
+```)

@@ -56,6 +56,8 @@
         // for the visualize effect, the text should be a bit nearer to the start point of the arrow
         let text-position = add2d(scale2d(0.55, arrow.start), scale2d(0.45, arrow.end))
         
+        // cetz.draw.circle(text-position, radius:.08)
+
         // slope of the arrow
         let slope = 0.
         let normal = (0., 0.)
@@ -70,15 +72,15 @@
         }
         
         if arrow.swapped != true {
-            text-position = add2d(text-position, scale2d(0.3, normal))
-            text-position = add2d(text-position, scale2d(0.5, mult2d(tangent, arrow.text-size)))
+            text-position = add2d(text-position, scale2d(0.2, normal))
+            text-position = add2d(text-position, scale2d(0.5, mult2d(normal, arrow.text-size)))
         } else {
-            text-position = add2d(text-position, scale2d(-0.3, normal))
-            text-position = add2d(text-position, scale2d(-0.5, mult2d(tangent, arrow.text-size)))
+            text-position = add2d(text-position, scale2d(-0.2, normal))
+            text-position = add2d(text-position, scale2d(-0.5, mult2d(normal, arrow.text-size)))
         }
         
-
-        cetz.draw.content(text-position, arrow.text, anchor: "center")
+        // cetz.draw.circle(text-position, radius:.05)
+        cetz.draw.content(text-position, arrow.text)
     }
 }
 

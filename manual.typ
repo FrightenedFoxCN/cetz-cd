@@ -23,3 +23,8 @@ $A$ ar[r, $g$] ar[rd, $f$, swapped] & $B$ ar[d];
     $H_* (A)$ ar[r] ar[d] & $H_*^cal(A) (X)$ ar[r] ar[d] & $H_* (S_*^cal(A) (X \/ S_* (A)))$ ar[r] ar[d] & $H_* (A)$ ar[r] ar[d] & $0$ ar[d];
     $H_* (A)$ ar[r] & $H_* (X)$ ar[r] & $H_* (X, A)$ ar[r] & $H_* (A)$ ar[r] & $0$
 ```)
+
+#cetz-cd( ```
+    $...$ ar[r] & $C_n$ ar[r, $d_(n - 1)$] ar[d, $u_n$, swapped] & $C_(n - 1)$ ar[r] ar[d, $u_(n - 1)$] & $...$;
+    $...$ ar[r] & $D_n$ ar[r, $d_(n - 1)$] & $D_(n - 1)$ ar[r] & $...$;
+```)
